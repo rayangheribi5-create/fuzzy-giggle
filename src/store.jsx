@@ -11,6 +11,7 @@ import {
   DEFAULT_CARDS,
   DEFAULT_GOALS,
   DEFAULT_MEALS,
+  DEFAULT_PROFILE,
   DEFAULT_SCHEDULE,
   DEFAULT_SETTINGS,
   DEFAULT_SLEEP,
@@ -24,6 +25,8 @@ function defaultState() {
   return {
     version: 1,
     settings: { ...DEFAULT_SETTINGS },
+    profile: { ...DEFAULT_PROFILE },
+    auth: null,
     scheduleDate: todayKey(),
     schedule: DEFAULT_SCHEDULE.map((item) => ({ ...item })),
     emotions: [],
@@ -58,6 +61,15 @@ function normalize(raw) {
       wakeRoutine: Array.isArray(raw.sleep?.wakeRoutine) ? raw.sleep.wakeRoutine : base.sleep.wakeRoutine,
     },
   };
+
+  state.profile = { ...base.profile, ...(raw.profile || {}) };
+  // Compatibilité avec les versions précédentes qui gardaient le prénom dans les réglages.
+  if (!state.profile.name && typeof raw.settings?.userName === 'string') {
+    state.profile.name = raw.settings.userName;
+  }
+  state.profile.name = String(state.profile.name || '').replace(/\s+/g, ' ').trim().slice(0, 24);
+  state.profile.onboarded = Boolean(state.profile.onboarded);
+  state.auth = raw.auth && typeof raw.auth === 'object' ? raw.auth : null;
 
   if (!ACCENTS[state.settings.accent]) state.settings.accent = base.settings.accent;
 
@@ -125,6 +137,38 @@ export function AppProvider({ children }) {
     },
     [patch],
   );
+
+  // ---- Profil : prénom de l'enfant + connexion Google (facultative) --------
+  const setChildName = useCallback(
+    (name) => {
+      const clean = String(name || '').replace(/\s+/g, ' ').trim().slice(0, 24);
+      patch((prev) => ({ ...prev, profile: { ...prev.profile, name: clean } }));
+    },
+    [patch],
+  );
+
+  const finishOnboarding = useCallback(() => {
+    patch((prev) => ({ ...prev, profile: { ...prev.profile, onboarded: true } }));
+  }, [patch]);
+
+  const setAuth = useCallback(
+    (profile) => {
+      patch((prev) => ({
+        ...prev,
+        auth: profile ? { ...profile, at: new Date().toISOString() } : null,
+      }));
+    },
+    [patch],
+  );
+
+  const signOut = useCallback(() => {
+    patch((prev) => ({ ...prev, auth: null }));
+    try {
+      window.google?.accounts?.id?.disableAutoSelect?.();
+    } catch {
+      // sans conséquence : le profil local est déjà effacé
+    }
+  }, [patch]);
 
   const soundOn = state.settings.sounds && !state.settings.calmMode;
 
@@ -389,6 +433,12 @@ export function AppProvider({ children }) {
     () => ({
       state,
       settings: state.settings,
+      profile: state.profile,
+      auth: state.auth,
+      setChildName,
+      finishOnboarding,
+      setAuth,
+      signOut,
       progress,
       storageError,
       soundOn,
@@ -422,6 +472,10 @@ export function AppProvider({ children }) {
     }),
     [
       state,
+      setChildName,
+      finishOnboarding,
+      setAuth,
+      signOut,
       progress,
       storageError,
       soundOn,

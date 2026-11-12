@@ -49,6 +49,21 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // Configuration publique : la connexion Google n'est proposée que si une
+    // clé OAuth est fournie par l'environnement (jamais écrite dans le code).
+    if (url.pathname === '/api/config') {
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+      });
+      res.end(
+        JSON.stringify({
+          googleClientId: process.env.GOOGLE_CLIENT_ID || null,
+        }),
+      );
+      return;
+    }
+
     const safePath = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, '');
     const candidate = join(root, safePath);
     if (!candidate.startsWith(root)) {

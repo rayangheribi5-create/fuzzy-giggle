@@ -1,6 +1,6 @@
 /* AutiColor — service worker minimal : application disponible hors ligne. */
 
-const CACHE = 'auticolor-v1';
+const CACHE = 'auticolor-v2';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', (event) => {
@@ -28,6 +28,9 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+
+  // La configuration (connexion Google) doit toujours être lue en direct.
+  if (url.pathname.startsWith('/api/')) return;
 
   // Navigation : réseau d'abord, puis cache (fonctionne hors ligne).
   if (request.mode === 'navigate') {

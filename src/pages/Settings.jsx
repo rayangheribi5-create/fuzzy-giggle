@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Card, PageHeader, Toggle, useConfirm } from '../components/UI';
+import GoogleButton from '../components/GoogleButton.jsx';
 import { ACCENTS } from '../lib/constants';
 import { clamp } from '../lib/utils';
 import { useApp } from '../store';
@@ -12,8 +14,31 @@ const TEXT_STEPS = [
 ];
 
 export default function Settings() {
-  const { settings, updateSettings, resetAll, state, storageError, feedback } = useApp();
+  const {
+    settings,
+    updateSettings,
+    resetAll,
+    state,
+    storageError,
+    feedback,
+    profile,
+    auth,
+    setChildName,
+    setAuth,
+    signOut,
+  } = useApp();
   const { ask, dialog } = useConfirm();
+  const [nameDraft, setNameDraft] = useState(profile?.name || '');
+
+  useEffect(() => {
+    setNameDraft(profile?.name || '');
+  }, [profile?.name]);
+
+  const saveName = (event) => {
+    event.preventDefault();
+    setChildName(nameDraft);
+    feedback('soft');
+  };
 
   const changeAccent = (key) => {
     updateSettings({ accent: key });
@@ -23,6 +48,81 @@ export default function Settings() {
   return (
     <>
       <PageHeader emoji="⚙️" title="Paramètres" subtitle="Tout est réglable, rien n’est imposé" />
+
+      <Card title="Mon profil" emoji="👤">
+        <p className="muted" style={{ marginBottom: '0.7rem' }}>
+          Le prénom affiché sur l’accueil. Il reste uniquement sur cet appareil.
+        </p>
+        <form className="stack" onSubmit={saveName}>
+          <div className="field">
+            <label className="field-label" htmlFor="child-name">
+              Prénom de l’enfant
+            </label>
+            <input
+              id="child-name"
+              className="input"
+              value={nameDraft}
+              maxLength={24}
+              placeholder="Ex. : Léa"
+              autoComplete="off"
+              onChange={(event) => setNameDraft(event.target.value)}
+            />
+          </div>
+          <div className="row">
+            <button type="submit" className="btn btn-primary">
+              💾 Enregistrer le prénom
+            </button>
+            {nameDraft !== (profile?.name || '') ? (
+              <span className="tiny">Modification pas encore enregistrée</span>
+            ) : null}
+          </div>
+        </form>
+
+        <div className="divider" />
+
+        <p className="muted" style={{ marginBottom: '0.5rem' }}>
+          Connexion Google (facultatif)
+        </p>
+        {auth ? (
+          <div className="profile-card">
+            {auth.picture ? (
+              <img className="avatar" src={auth.picture} alt="" referrerPolicy="no-referrer" />
+            ) : (
+              <span className="avatar avatar-emoji" aria-hidden="true">
+                👤
+              </span>
+            )}
+            <div style={{ minWidth: 0 }}>
+              <strong>{auth.name || 'Compte Google'}</strong>
+              <p className="tiny">{auth.email}</p>
+            </div>
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              onClick={() => {
+                signOut();
+                feedback('soft');
+              }}
+            >
+              Se déconnecter
+            </button>
+          </div>
+        ) : (
+          <>
+            <GoogleButton
+              onProfile={(googleProfile) => {
+                setAuth(googleProfile);
+                feedback('soft');
+              }}
+            />
+            <p className="tiny" style={{ marginTop: '0.5rem' }}>
+              Aucun compte n’est nécessaire pour utiliser AutiColor. La connexion Google sert
+              seulement à afficher ton prénom et ta photo ; les données de l’application restent
+              sur cet appareil.
+            </p>
+          </>
+        )}
+      </Card>
 
       <Card title="Couleurs" emoji="🎨">
         <p className="muted" style={{ marginBottom: '0.7rem' }}>
@@ -133,8 +233,9 @@ export default function Settings() {
 
       <Card title="Mes données" emoji="🔒">
         <p className="muted">
-          Tout est enregistré uniquement sur cet appareil (LocalStorage). Aucun compte, aucune
-          donnée médicale, rien n’est envoyé sur internet.
+          Tout est enregistré uniquement sur cet appareil (LocalStorage). Aucun compte
+          obligatoire, aucune donnée médicale, et tes données d’application ne sont jamais
+          envoyées sur internet.
         </p>
         <div className="stat-grid" style={{ marginTop: '0.8rem' }}>
           <div className="stat">

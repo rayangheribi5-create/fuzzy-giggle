@@ -3,7 +3,8 @@ import { frDate, frTime } from '../lib/utils';
 import { useApp } from '../store';
 
 export default function Dashboard({ installState }) {
-  const { state, progress, settings } = useApp();
+  const { state, progress, settings, profile, auth } = useApp();
+  const childName = profile?.name || '';
   const nextTasks = state.schedule.filter((task) => !task.done).slice(0, 3);
   const lastEmotion = state.emotions[0];
   const doneGoals = state.goals.filter((goal) => goal.done);
@@ -13,7 +14,12 @@ export default function Dashboard({ installState }) {
       <section className="hero">
         <span className="hero-blob" aria-hidden="true" />
         <span className="hero-blob small" aria-hidden="true" />
-        <h1>Bonjour 🌈</h1>
+        <div className="hero-title-row">
+          {auth?.picture ? (
+            <img className="avatar" src={auth.picture} alt="" referrerPolicy="no-referrer" />
+          ) : null}
+          <h1>{childName ? `Bonjour ${childName} 🌈` : 'Bonjour 🌈'}</h1>
+        </div>
         <p>
           {frDate()}. Ici, tout est à ton rythme. Tu peux choisir une carte ci-dessous, sans
           aucune obligation.
@@ -23,6 +29,11 @@ export default function Dashboard({ installState }) {
           <span className="badge">⭐ {progress.wins} réussites</span>
           <span className="badge">🎯 {progress.goalsDone}/{progress.totalGoals} objectifs</span>
           {settings.calmMode ? <span className="badge">🧸 Mode calme activé</span> : null}
+          {childName ? null : (
+            <a className="badge" href="#/parametres">
+              👤 Ajouter mon prénom
+            </a>
+          )}
         </div>
       </section>
 
@@ -168,8 +179,9 @@ export default function Dashboard({ installState }) {
       </div>
 
       <p className="center tiny">
-        AutiColor ne demande pas de compte et n’envoie rien sur internet. Tout reste sur ton
-        appareil 🔒
+        Aucun compte n’est obligatoire et rien n’est envoyé sur internet : tout reste sur ton
+        appareil 🔒 La connexion Google est facultative et sert seulement à afficher le prénom et
+        la photo de ton profil.
       </p>
     </>
   );

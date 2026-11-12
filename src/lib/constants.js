@@ -15,7 +15,13 @@ export const DEFAULT_SETTINGS = {
   calmMode: false,
   reduceMotion: false,
   bigCards: false,
-  userName: '',
+};
+
+export const DEFAULT_PROFILE = {
+  // Prénom de l'enfant : facultatif, jamais envoyé, gardé sur l'appareil.
+  name: '',
+  // true dès que l'écran de bienvenue a été vu (ou passé).
+  onboarded: false,
 };
 
 export const DEFAULT_SCHEDULE = [

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ALL_PAGES, NAV_ITEMS } from './lib/constants';
 import { useRoute } from './lib/router';
 import { useApp } from './store';
+import Onboarding from './components/Onboarding.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Schedule from './pages/Schedule.jsx';
 import Emotions from './pages/Emotions.jsx';
@@ -78,7 +79,7 @@ function Brand() {
 
 export default function App() {
   const route = useRoute();
-  const { settings, updateSettings, feedback } = useApp();
+  const { settings, updateSettings, feedback, profile } = useApp();
   const installState = useInstallPrompt();
   const Page = ROUTES[route] || Dashboard;
   const current = ALL_PAGES.find((page) => page.path === route) || ALL_PAGES[0];
@@ -166,6 +167,8 @@ export default function App() {
           </a>
         ))}
       </nav>
+
+      {profile?.onboarded ? null : <Onboarding />}
     </div>
   );
 }
