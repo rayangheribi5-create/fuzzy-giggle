@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Confidentialité — AutiColor 🌈</title>
+    <meta
+      name="description"
+      content="Politique de confidentialité d'AutiColor : aucune donnée envoyée, tout reste sur l'appareil, sans compte et sans publicité."
+    />
+    <meta name="theme-color" content="#cfe4ff" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <style>
+      :root {
+        --ink: #2f2a3d;
+        --ink-soft: #5b5470;
+        --paper: #fdfbff;
+        --card: #ffffff;
+        --blue: #cfe4ff;
+        --violet: #e4dcff;
+        --pink: #ffe0ef;
+        --green: #d9f5e3;
+        --yellow: #fff4cc;
+        --line: #ece7f7;
+        --radius: 22px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 1.2rem 1rem 3.5rem;
+        font-family: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+        font-size: 1.06rem;
+        line-height: 1.65;
+        color: var(--ink);
+        background: linear-gradient(160deg, var(--blue), var(--violet) 45%, var(--pink) 100%);
+        background-attachment: fixed;
+        min-height: 100vh;
+      }
+      .wrap {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 800;
+        font-size: 1.15rem;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .brand span.dot {
+        font-size: 1.4rem;
+      }
+      .back {
+        display: inline-block;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        background: #fff;
+        color: var(--ink);
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 6px 16px rgba(80, 60, 140, 0.12);
+      }
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 1.4rem 1.2rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 10px 26px rgba(80, 60, 140, 0.1);
+      }
+      h1 {
+        font-size: 1.7rem;
+        line-height: 1.25;
+        margin: 0 0 0.4rem;
+      }
+      h2 {
+        font-size: 1.22rem;
+        margin: 0 0 0.5rem;
+      }
+      p,
+      li {
+        color: var(--ink-soft);
+      }
+      p {
+        margin: 0 0 0.7rem;
+      }
+      ul {
+        margin: 0 0 0.4rem;
+        padding-left: 1.2rem;
+      }
+      li {
+        margin-bottom: 0.35rem;
+      }
+      .lead {
+        font-size: 1.1rem;
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .pill {
+        display: inline-block;
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--ink);
+        background: var(--green);
+        margin: 0 0.4rem 0.4rem 0;
+      }
+      .pill.violet {
+        background: var(--violet);
+      }
+      .pill.yellow {
+        background: var(--yellow);
+      }
+      .pill.pink {
+        background: var(--pink);
+      }
+      .date {
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+      }
+      a {
+        color: #5a3fd6;
+      }
+      .todo {
+        background: var(--yellow);
+        border-radius: 14px;
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+        color: var(--ink);
+      }
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #4b4460;
+        padding-top: 0.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <a class="brand" href="/"><span class="dot" aria-hidden="true">🌈</span> AutiColor</a>
+        <a class="back" href="/">← Retour à l’application</a>
+      </div>
+
+      <div class="card">
+        <h1>Politique de confidentialité</h1>
+        <p class="date">Dernière mise à jour : 14 novembre 2026</p>
+        <p class="lead">
+          AutiColor est une application d’accompagnement douce. Elle fonctionne sans compte et
+          n’envoie aucune donnée personnelle sur internet : tout ce que tu écris reste sur ton
+          appareil.
+        </p>
+        <div>
+          <span class="pill">🚫 Aucune publicité</span>
+          <span class="pill violet">📴 Aucun suivi</span>
+          <span class="pill yellow">🙅 Aucun compte obligatoire</span>
+          <span class="pill pink">🔒 Données locales</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>1. Quelles données sont enregistrées ?</h2>
+        <p>
+          Uniquement les informations que tu saisis toi-même dans l’application, et uniquement
+          sur ton appareil (stockage local du navigateur, appelé « LocalStorage ») :
+        </p>
+        <ul>
+          <li>le prénom affiché sur l’écran d’accueil (facultatif) ;</li>
+          <li>le programme de la journée et les activités cochées ;</li>
+          <li>les émotions choisies et les besoins associés ;</li>
+          <li>les cartes de communication et leurs personnalisations ;</li>
+          <li>le planning des repas et les routines de sommeil ;</li>
+          <li>les objectifs et les petites réussites ;</li>
+          <li>les préférences d’affichage (couleurs, taille du texte, mode calme, sons).</li>
+        </ul>
+        <p>
+          Aucune donnée médicale, aucun diagnostic et aucune information sensible ne sont
+          demandés. Aucune information n’est transmise à un serveur AutiColor.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>2. La connexion Google (facultatif)</h2>
+        <p>
+          Si tu choisis de te connecter avec Google, Google te demande ton autorisation puis
+          fournit à l’application ton nom, ton adresse e-mail et ta photo de profil. Ces
+          informations sont affichées seulement sur ton appareil, pour personnaliser l’accueil.
+          Elles ne sont jamais envoyées à AutiColor et ne sont pas conservées sur un serveur.
+        </p>
+        <p>
+          Le bouton « Se déconnecter » dans les paramètres efface ces informations de l’appareil.
+          L’usage de la connexion Google est régi par la politique de confidentialité de Google :
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener"
+            >policies.google.com/privacy</a
+          >.
+        </p>
+        <p>
+          Cette connexion n’est jamais obligatoire : toutes les fonctions de l’application
+          marchent sans elle.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>3. Ce que l’application ne fait pas</h2>
+        <ul>
+          <li>pas de publicité, ni de contenu sponsorisé ;</li>
+          <li>pas d’outil de mesure d’audience (analytics) et pas de traceur ;</li>
+          <li>pas de revente ni de partage de données avec des tiers ;</li>
+          <li>pas de géolocalisation, pas d’accès aux contacts, au micro ou aux photos ;</li>
+          <li>pas de notification automatique et pas de son au démarrage.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>4. Enfants et personnes vulnérables</h2>
+        <p>
+          AutiColor est conçue pour des personnes de tous âges, y compris des enfants. Comme
+          l’application ne collecte aucune donnée personnelle, n’affiche aucune publicité et ne
+          crée aucun profil, elle respecte le principe de minimisation du RGPD et les exigences
+          applicables aux applications destinées aux enfants.
+        </p>
+        <p>
+          L’application n’est pas un dispositif médical : elle ne remplace pas l’avis d’un
+          professionnel de santé ou d’un accompagnant.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>5. Supprimer ses données</h2>
+        <p>
+          Dans l’application : <strong>Paramètres → Mes données → « Effacer mes données »</strong>.
+          Tu peux aussi supprimer les données du site dans les réglages de ton navigateur, ou
+          désinstaller l’application : les informations locales sont alors effacées.
+        </p>
+        <p>
+          Comme aucune donnée n’est stockée sur un serveur, il n’y a rien à supprimer à distance
+          et aucune demande à envoyer.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>6. Hébergement et journaux techniques</h2>
+        <p>
+          L’application est un site web installable (PWA). Comme tout site, l’hébergeur peut
+          enregistrer des journaux techniques temporaires (adresse IP, date, type de navigateur)
+          pour assurer la sécurité et la disponibilité du service. Ces journaux ne contiennent
+          aucune donnée saisie dans l’application et ne servent à aucun suivi publicitaire.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>7. Contact</h2>
+        <p class="todo">
+          ✍️ <strong>À compléter avant la publication en magasin :</strong> ajoute ici l’adresse
+          e-mail de l’éditeur (obligatoire pour les fiches Google Play et App Store). Voir
+          <code>docs/publication-stores.md</code>, section « À faire par toi ».
+        </p>
+        <p>
+          Cette page sera mise à jour à chaque changement de fonctionnement de l’application.
+        </p>
+      </div>
+
+      <footer>AutiColor 🌈 — fait avec douceur, pour toi.</footer>
+    </div>
+  </body>
+</html>

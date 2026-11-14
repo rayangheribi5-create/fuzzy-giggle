@@ -237,6 +237,11 @@ export default function Settings() {
           obligatoire, aucune donnée médicale, et tes données d’application ne sont jamais
           envoyées sur internet.
         </p>
+        <p className="tiny" style={{ marginTop: '0.4rem' }}>
+          <a href="/confidentialite.html" target="_blank" rel="noreferrer">
+            🔒 Lire la politique de confidentialité
+          </a>
+        </p>
         <div className="stat-grid" style={{ marginTop: '0.8rem' }}>
           <div className="stat">
             <div className="v">{state.schedule.length}</div>
